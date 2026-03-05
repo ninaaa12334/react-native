@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import StudentInfo from '../components/StudentInfo';
-import Projects from '../components/Projects';
+import StudentInfo from './StudentInfo';
+import Projects from './Projects';
 
 const ProfileScreen = () => {
   return (
