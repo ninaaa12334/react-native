@@ -1,16 +1,62 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import ListScreen from "./screens/ListScreen";
-import BoxScreen from "./screens/BoxScreen";
 import { NavigationContainer } from "@react-navigation/native"; 
 import { createStackNavigator } from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from "@expo/vector-icons";
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from "@react-navigation/drawer";
+import HomeScreen from "./screens/HomeScreen";
+import AboutScreen from "./screens/AboutScreen";
+import ContactScreen from "./screens/ContactScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import SliderScreen from "./screens/SliderScreen";
+import ApiScreen from "./screens/ApiScreen";
 
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-function CostumDrawerContent(props){
+const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'About') {
+            iconName = focused ? 'information-circle' : 'information-circle-outline';
+          } else if (route.name === 'Contact') {
+            iconName = focused ? 'call' : 'call-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: '#e94560',
+        tabBarInactiveTintColor: 'gray',
+        headerStyle: {
+          backgroundColor: '#16213e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="About" component={AboutScreen} />
+      <Tab.Screen name="Contact" component={ContactScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+    </Tab.Navigator>
+  );
+}
   return(
     <View style={{flex: 1 , backgroundColor: '#1a11a2e'}}>
       <View style={StyleSheet.draweHeader}>
@@ -77,24 +123,35 @@ export default function App() {
           },
         }}
         >
-          {/* <Drawer.Screen
-          name= 'BoxScreen'
-          component={BoxScreen}
+          <Drawer.Screen
+          name= 'MainTabs'
+          component={TabNavigator}
           options={{
-            title: 'BoxModel',
+            title: 'Main',
             drawerIcon: ({color, size}) => (
-              <Ionicons name='globe-outline' size={size} color={color} />
+              <Ionicons name='home-outline' size={size} color={color} />
             ),
           }}
-          /> */}
+          />
 
           <Drawer.Screen
-          name= 'ListScreen'
-          component={ListScreen}
+          name= 'Slider'
+          component={SliderScreen}
           options={{
-            title: 'ListScreen',
+            title: 'Slider',
             drawerIcon: ({color, size}) => (
-              <Ionicons name='document-text-outline' size={size} color={color} />
+              <Ionicons name='images-outline' size={size} color={color} />
+            ),
+          }}
+          />
+
+          <Drawer.Screen
+          name= 'API'
+          component={ApiScreen}
+          options={{
+            title: 'API Data',
+            drawerIcon: ({color, size}) => (
+              <Ionicons name='cloud-download-outline' size={size} color={color} />
             ),
           }}
           />
